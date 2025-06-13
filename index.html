@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>akileshas | redirecting</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Terminal container matching homepage style */
+    .terminal-container {
+      width: 90%;
+      max-width: 700px;
+      height: auto;
+      min-height: 400px;
+      background: #000000;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 125, 177, 0.3);
+      box-shadow: 0 0 50px rgba(15, 125, 177, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Terminal header matching homepage */
+    .terminal-header {
+      background: #1a1a1a;
+      border-bottom: 1px solid rgba(15, 125, 177, 0.2);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .terminal-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close { background: #ff5f56; }
+    .minimize { background: #ffbd2e; }
+    .maximize { background: #27ca3f; }
+
+    .terminal-title {
+      color: #0f7db1;
+      font-size: 14px;
+      margin-left: 15px;
+      font-weight: 500;
+    }
+
+    /* Terminal content */
+    .terminal-content {
+      padding: 20px;
+      background: #000000;
+      border-radius: 0 0 11px 11px;
+    }
+
+    /* Terminal text styles matching homepage */
+    .line {
+      margin: 0.3rem 0;
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+    }
+
+    .prompt {
+      color: #0f7db1;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .prompt::before {
+      content: ">>> [~] $_ ";
+      color: #0f7db1;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .output {
+      color: #f0f0f0;
+      margin-left: 1rem;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .cmd-cat,
+    .cmd-redirect {
+      color: #50fa7b;
+      font-size: 14px;
+    }
+
+    .warning {
+      color: #ffd93d;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .link {
+      color: #f0f0f0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: text-decoration 0.3s ease;
+      font-size: 14px;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+      text-decoration-color: #50fa7b;
+    }
+
+    .counter {
+      color: #ff6b6b;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Fixed cursor alignment */
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2rem;
+      background: #0f7db1;
+      margin-left: 5px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* Screen size warning matching homepage */
+    .screen-warning {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      color: #ff6b6b;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 14px;
+      padding: 20px;
+      z-index: 9999;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .warning-content {
+      max-width: 90%;
+      line-height: 1.6;
+    }
+
+    .warning-title {
+      color: #ff6b6b;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .warning-text {
+      color: #f0f0f0;
+      margin: 0.5rem 0;
+    }
+
+    .warning-command {
+      color: #50fa7b;
+      font-weight: bold;
+    }
+
+    /* Responsive design matching homepage */
+    @media (max-width: 700px) {
+      .terminal-container {
+        display: none;
+      }
+
+      .screen-warning {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 701px) and (max-width: 768px) {
+      .terminal-container {
+        width: 95%;
+      }
+
+      .terminal-content {
+        padding: 15px;
+      }
+
+      .line,
+      .prompt,
+      .output,
+      .warning,
+      .link,
+      .counter,
+      .cmd-cat,
+      .cmd-redirect {
+        font-size: 13px;
+      }
+
+      .warning {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="screen-warning">
+    <div class="warning-content">
+      <div class="warning-title">>>> SCREEN SIZE ERROR</div>
+      <div class="warning-text">brain: /dev/display: Device too small</div>
+      <div class="warning-text">terminal: minimum viewport width required</div>
+      <div class="warning-text"></div>
+      <div class="warning-text">RECOMMENDED:</div>
+      <div class="warning-text"><span class="warning-command">xrandr --output DISPLAY --mode 1024x768</span></div>
+      <div class="warning-text">or rotate device to landscape mode</div>
+      <div class="warning-text"></div>
+      <div class="warning-text">current viewport: <span id="viewport-size">calculating...</span></div>
+      <div class="warning-text">required: ≥ 700px width</div>
+    </div>
+  </div>
+
+  <div class="terminal-container">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <div class="terminal-button close"></div>
+        <div class="terminal-button minimize"></div>
+        <div class="terminal-button maximize"></div>
+      </div>
+      <div class="terminal-title">akileshas@ai: ~</div>
+    </div>
+
+    <div class="terminal-content">
+      <div class="line prompt"><span class="cmd-cat">cat status</span></div>
+      <div class="line output"><span class="warning">site: under development</span></div>
+
+      <div class="line prompt"><span class="cmd-redirect">redirect --target home</span></div>
+      <div class="line output">redirecting to <a href="https://akileshas.github.io/home/" class="link">akileshas.github.io/home</a></div>
+      <div class="line output">eta: <span class="counter" id="counter">5</span>s</div>
+      <div class="line output">press any key to skip<span class="cursor"></span></div>
+    </div>
+  </div>
+
+  <script>
+    let timeLeft = 5;
+    let interval;
+    const counter = document.getElementById('counter');
+
+    function updateCounter() {
+      counter.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        window.location.href = 'https://akileshas.github.io/home/';
+        return;
+      }
+      timeLeft--;
+    }
+
+    function startTimer() {
+      // Clear any existing interval
+      if (interval) {
+        clearInterval(interval);
+      }
+
+      // Reset timer if returning to page
+      timeLeft = 5;
+      updateCounter();
+      interval = setInterval(updateCounter, 1000);
+    }
+
+    // Start timer when page loads
+    startTimer();
+
+    // Restart timer when page gains focus (user returns to tab)
+    window.addEventListener('focus', () => {
+      startTimer();
+    });
+
+    // Skip on any key press
+    document.addEventListener('keydown', (e) => {
+      clearInterval(interval);
+      window.location.href = 'https://akileshas.github.io/home/';
+    });
+
+    // Skip on click
+    document.addEventListener('click', () => {
+      clearInterval(interval);
+      window.location.href = 'https://akileshas.github.io/home/';
+    });
+
+    // Update viewport size display
+    function updateViewportSize() {
+      const viewportElement = document.getElementById('viewport-size');
+      if (viewportElement) {
+        viewportElement.textContent = `${window.innerWidth}x${window.innerHeight}`;
+      }
+    }
+
+    // Update on load and resize
+    window.addEventListener('load', updateViewportSize);
+    window.addEventListener('resize', updateViewportSize);
+  </script>
+</body>
+</html>
