@@ -24,10 +24,8 @@
 
     /* Terminal container matching homepage style */
     .terminal-container {
-      width: 90%;
-      max-width: 700px;
-      height: auto;
-      min-height: 400px;
+      width: 500px;
+      min-width: 500px;
       background: #000000;
       border-radius: 12px;
       border: 1px solid rgba(15, 125, 177, 0.3);
@@ -83,8 +81,7 @@
       white-space: pre-wrap;
       font-size: 14px;
       line-height: 1.4;
-      display: flex;
-      align-items: center;
+      display: block;
     }
 
     .prompt {
@@ -104,8 +101,7 @@
       color: #f0f0f0;
       margin-left: 1rem;
       font-size: 14px;
-      display: flex;
-      align-items: center;
+      display: block;
     }
 
     .cmd-cat,
@@ -208,10 +204,6 @@
     }
 
     @media (min-width: 701px) and (max-width: 768px) {
-      .terminal-container {
-        width: 95%;
-      }
-
       .terminal-content {
         padding: 15px;
       }
@@ -264,9 +256,9 @@
       <div class="line output"><span class="warning">site: under development</span></div>
 
       <div class="line prompt"><span class="cmd-redirect">redirect --target home</span></div>
-      <div class="line output">redirecting to <a href="https://akileshas.github.io/home/" class="link">akileshas.github.io/home</a></div>
+      <div class="line output">redirecting to <a href="https://akileshas.github.io/home/" class="link">akileshas.github.io/home</a> ...</div>
       <div class="line output">eta: <span class="counter" id="counter">5</span>s</div>
-      <div class="line output">press any key to skip<span class="cursor"></span></div>
+      <div class="line output">press enter to skip<span class="cursor"></span></div>
     </div>
   </div>
 
@@ -286,38 +278,28 @@
     }
 
     function startTimer() {
-      // Clear any existing interval
-      if (interval) {
-        clearInterval(interval);
-      }
-
-      // Reset timer if returning to page
+      if (interval) clearInterval(interval);
       timeLeft = 5;
       updateCounter();
       interval = setInterval(updateCounter, 1000);
     }
 
-    // Start timer when page loads
     startTimer();
 
-    // Restart timer when page gains focus (user returns to tab)
-    window.addEventListener('focus', () => {
-      startTimer();
-    });
+    window.addEventListener('focus', startTimer);
 
-    // Skip on any key press
     document.addEventListener('keydown', (e) => {
-      clearInterval(interval);
-      window.location.href = 'https://akileshas.github.io/home/';
+      if (e.key === 'Enter') {
+        clearInterval(interval);
+        window.location.href = 'https://akileshas.github.io/home/';
+      }
     });
 
-    // Skip on click
     document.addEventListener('click', () => {
       clearInterval(interval);
       window.location.href = 'https://akileshas.github.io/home/';
     });
 
-    // Update viewport size display
     function updateViewportSize() {
       const viewportElement = document.getElementById('viewport-size');
       if (viewportElement) {
@@ -325,7 +307,6 @@
       }
     }
 
-    // Update on load and resize
     window.addEventListener('load', updateViewportSize);
     window.addEventListener('resize', updateViewportSize);
   </script>
