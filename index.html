@@ -258,14 +258,14 @@
   <script>
     let timeLeft = 5;
     let interval;
-    const counter = document.getElementById('counter');
+    const counter = document.getElementById("counter");
 
     function updateCounter() {
       counter.textContent = timeLeft;
       if (timeLeft <= 0) {
         clearInterval(interval);
         if (window.innerWidth >= 700) {
-          window.location.href = 'https://akileshas.github.io/home/';
+          window.location.href = "https://akileshas.github.io/home/";
         }
         return;
       }
