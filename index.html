@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>akileshas | redirecting</title>
+  <title>akileshas | redirecting ...</title>
   <style>
     * {
       margin: 0;
@@ -15,14 +15,13 @@
       height: 100%;
       overflow: hidden;
       background: #0a0a0a;
-      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
       font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Terminal container matching homepage style */
     .terminal-container {
       width: 500px;
       min-width: 500px;
@@ -34,7 +33,6 @@
       position: relative;
     }
 
-    /* Terminal header matching homepage */
     .terminal-header {
       background: #1a1a1a;
       border-bottom: 1px solid rgba(15, 125, 177, 0.2);
@@ -68,14 +66,12 @@
       font-weight: 500;
     }
 
-    /* Terminal content */
     .terminal-content {
       padding: 20px;
       background: #000000;
       border-radius: 0 0 11px 11px;
     }
 
-    /* Terminal text styles matching homepage */
     .line {
       margin: 0.3rem 0;
       white-space: pre-wrap;
@@ -135,7 +131,6 @@
       font-size: 14px;
     }
 
-    /* Fixed cursor alignment */
     .cursor {
       display: inline-block;
       width: 10px;
@@ -151,7 +146,6 @@
       51%, 100% { opacity: 0; }
     }
 
-    /* Screen size warning matching homepage */
     .screen-warning {
       display: none;
       position: fixed;
@@ -161,7 +155,7 @@
       height: 100%;
       background: #000000;
       color: #ff6b6b;
-      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
       font-size: 14px;
       padding: 20px;
       z-index: 9999;
@@ -192,7 +186,6 @@
       font-weight: bold;
     }
 
-    /* Responsive design matching homepage */
     @media (max-width: 700px) {
       .terminal-container {
         display: none;
@@ -288,24 +281,24 @@
 
     startTimer();
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
         clearInterval(interval);
         if (window.innerWidth >= 700) {
-          window.location.href = 'https://akileshas.github.io/home/';
+          window.location.href = "https://akileshas.github.io/home/";
         }
       }
     });
 
     function updateViewportSize() {
-      const viewportElement = document.getElementById('viewport-size');
+      const viewportElement = document.getElementById("viewport-size");
       if (viewportElement) {
         viewportElement.textContent = `${window.innerWidth}x${window.innerHeight}`;
       }
     }
 
-    window.addEventListener('load', updateViewportSize);
-    window.addEventListener('resize', updateViewportSize);
+    window.addEventListener("load", updateViewportSize);
+    window.addEventListener("resize", updateViewportSize);
   </script>
 </body>
 </html>
