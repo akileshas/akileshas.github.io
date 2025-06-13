@@ -271,7 +271,9 @@
       counter.textContent = timeLeft;
       if (timeLeft <= 0) {
         clearInterval(interval);
-        window.location.href = 'https://akileshas.github.io/home/';
+        if (window.innerWidth >= 700) {
+          window.location.href = 'https://akileshas.github.io/home/';
+        }
         return;
       }
       timeLeft--;
@@ -286,18 +288,20 @@
 
     startTimer();
 
-    window.addEventListener('focus', startTimer);
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         clearInterval(interval);
-        window.location.href = 'https://akileshas.github.io/home/';
+        if (window.innerWidth >= 700) {
+          window.location.href = 'https://akileshas.github.io/home/';
+        }
       }
     });
 
     document.addEventListener('click', () => {
       clearInterval(interval);
-      window.location.href = 'https://akileshas.github.io/home/';
+      if (window.innerWidth >= 700) {
+        window.location.href = 'https://akileshas.github.io/home/';
+      }
     });
 
     function updateViewportSize() {
