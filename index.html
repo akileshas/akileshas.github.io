@@ -34,14 +34,14 @@
 
     .line.output.path {
       white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      overflow-wrap: normal;
+      word-break: normal;
     }
 
     .path-link {
+      word-break: keep-all;
+      overflow-wrap: normal;
       white-space: inherit;
-      overflow-wrap: anywhere;
-      word-break: break-word;
     }
 
     .terminal-container {
@@ -513,9 +513,17 @@
       }
     }
 
-    window.addEventListener("load", updateViewportSize);
+    function fixPathWrapping() {
+      const paths = document.querySelectorAll(".line.output.path a");
+      paths.forEach(el => {
+        el.innerHTML = el.textContent.replace(/\//g, "/\u200B");
+      });
+    }
+
     window.addEventListener("resize", updateViewportSize);
+    window.addEventListener("load", updateViewportSize);
     window.addEventListener("load", updateUptime);
+    window.addEventListener("load", fixPathWrapping);
   </script>
 </body>
 </html>
