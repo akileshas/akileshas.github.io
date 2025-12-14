@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>home | akileshas</title>
+  <link rel="icon" type="image/png" href="./asserts/png/favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .terminal-content {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .terminal-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .line.output.path {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .path-link {
+      white-space: inherit;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .terminal-container {
+      width: 90%;
+      max-width: 900px;
+      height: 85vh;
+      background: #000000;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 125, 177, 0.3);
+      box-shadow: 0 0 50px rgba(15, 125, 177, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .terminal-header {
+      background: #1a1a1a;
+      border-bottom: 1px solid rgba(15, 125, 177, 0.2);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .terminal-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close { background: #ff5f56; }
+    .minimize { background: #ffbd2e; }
+    .maximize { background: #27ca3f; }
+
+    .terminal-title {
+      color: #0f7db1;
+      font-size: 14px;
+      margin-left: 15px;
+      font-weight: 500;
+    }
+
+    .terminal-content {
+      height: calc(100% - 60px);
+      overflow-y: auto;
+      padding: 20px;
+      background: #000000;
+      border-radius: 0 0 11px 11px;
+    }
+
+    .terminal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .terminal-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    .terminal-content::-webkit-scrollbar-thumb {
+      background: rgba(15, 125, 177, 0.3);
+      border-radius: 4px;
+    }
+
+    .terminal-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(15, 125, 177, 0.5);
+    }
+
+    .line {
+      margin: 0.3rem 0;
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .prompt {
+      color: #0f7db1;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .prompt::before {
+        content: ">>> [~] $_ ";
+      color: #0f7db1;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .output {
+      color: #f0f0f0;
+      margin-left: 1rem;
+      font-size: 14px;
+    }
+
+    .comment {
+      color: #888;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    .highlight {
+      color: #0f7db1;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .accent {
+      color: #ff6b6b;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .info {
+      color: #ffd93d;
+      font-size: 14px;
+    }
+
+    .cmd-whoami,
+    .cmd-pwd,
+    .cmd-fastfetch,
+    .cmd-find,
+    .cmd-compgen,
+    .cmd-timedatectl,
+    .cmd-cat,
+    .cmd-type {
+      color: #50fa7b;
+      font-size: 14px;
+    }
+
+    .path {
+      color: #8be9fd;
+      font-size: 14px;
+    }
+
+    .file-link, .path-link {
+      color: #f0f0f0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: text-decoration 0.3s ease;
+      font-size: 14px;
+    }
+
+    .file-link:hover, .path-link:hover {
+      text-decoration: underline;
+      text-decoration-color: #50fa7b;
+    }
+
+    .fastfetch {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #000000;
+      border: 1px solid rgba(15, 125, 177, 0.1);
+      border-radius: 8px;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .ascii-art {
+      color: #0f7db1;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.2;
+      white-space: pre;
+      min-width: 150px;
+    }
+
+    .fastfetch-info {
+      flex: 1;
+    }
+
+    .fastfetch-header {
+      color: #0f7db1;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 0.5rem;
+    }
+
+    .fastfetch-line {
+      display: flex;
+      margin: 0.2rem 0;
+      font-size: 14px;
+    }
+
+    .fastfetch-key {
+      color: #0f7db1;
+      font-weight: 500;
+      min-width: 120px;
+      font-size: 14px;
+    }
+
+    .fastfetch-value {
+      color: #f0f0f0;
+      font-size: 14px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2rem;
+      background: #0f7db1;
+      margin-left: 5px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    a:not(.file-link):not(.path-link) {
+      color: #0f7db1;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 14px;
+    }
+
+    a:not(.file-link):not(.path-link):hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .screen-warning {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      color: #ff6b6b;
+      font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      font-size: 14px;
+      padding: 20px;
+      z-index: 9999;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .warning-content {
+      max-width: 90%;
+      line-height: 1.6;
+    }
+
+    .warning-title {
+      color: #ff6b6b;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .warning-text {
+      color: #f0f0f0;
+      margin: 0.5rem 0;
+    }
+
+    .warning-command {
+      color: #50fa7b;
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+      .terminal-container {
+        display: none;
+      }
+
+      .screen-warning {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 701px) and (max-width: 768px) {
+      .terminal-container {
+        width: 95%;
+        height: 90vh;
+      }
+
+      .terminal-content {
+        padding: 15px;
+      }
+
+      .line,
+      .prompt,
+      .output,
+      .comment,
+      .highlight,
+      .accent,
+      .info,
+      .cmd-whoami,
+      .cmd-pwd,
+      .cmd-fastfetch,
+      .cmd-find,
+      .cmd-compgen,
+      .cmd-timedatectl,
+      .cmd-cat,
+      .cmd-type,
+      .path,
+      .file-link,
+      .path-link,
+      .ascii-art,
+      .fastfetch-header,
+      .fastfetch-line,
+      .fastfetch-key,
+      .fastfetch-value,
+      a:not(.file-link):not(.path-link) {
+        font-size: 13px;
+      }
+
+      .fastfetch-key {
+        min-width: 100px;
+      }
+
+      .ascii-art {
+        min-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="screen-warning">
+    <div class="warning-content">
+      <div class="warning-title">>>> SCREEN SIZE ERROR</div>
+      <div class="warning-text">brain: /dev/display: Device too small</div>
+      <div class="warning-text">terminal: minimum viewport width required</div>
+      <div class="warning-text"></div>
+      <div class="warning-text">RECOMMENDED:</div>
+      <div class="warning-text"><span class="warning-command">xrandr --output DISPLAY --mode 1024x768</span></div>
+      <div class="warning-text">or rotate device to landscape mode</div>
+      <div class="warning-text"></div>
+      <div class="warning-text">current viewport: <span id="viewport-size">calculating...</span></div>
+      <div class="warning-text">required: ≥ 700px width</div>
+    </div>
+  </div>
+
+  <div class="terminal-container">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <div class="terminal-button close"></div>
+        <div class="terminal-button minimize"></div>
+        <div class="terminal-button maximize"></div>
+      </div>
+      <div class="terminal-title">akileshas@ai: ~</div>
+    </div>
+
+    <div class="terminal-content">
+      <div class="line prompt"><span class="cmd-whoami">whoami</span></div>
+      <div class="line output">akileshas</div>
+
+      <div class="line prompt"><span class="cmd-compgen">groups akileshas</span></div>
+      <div class="line output">akileshas: ai & quant researcher</div>
+
+      <div class="line prompt"><span class="cmd-pwd">pwd</span></div>
+      <div class="line output path"><a href="https://www.google.com/maps/place/Kanyakumari,+Tamil+Nadu,+India/" target="_blank" class="path-link">/universe/observable_universe/laniakea_supercluster/virgo_supercluster/local_group/milky_way/orion_arm/solar_system/earth/asia/india/tamil_nadu/kanyakumari/</a></div>
+
+      <div class="line prompt"><span class="cmd-timedatectl">timedatectl | grep "time zone"</span></div>
+      <div class="line output">time zone: utc +5:30</div>
+
+      <div class="line prompt"><span class="cmd-fastfetch">fastfetch</span></div>
+      <div class="fastfetch">
+        <div class="ascii-art">        ___
+       (.. |
+       (<> |
+      / __  \
+     ( /  \ /|
+    _/\  _)/_)
+    \/-_____\/</div>
+        <div class="fastfetch-info">
+          <div class="fastfetch-header">akileshas@ai</div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">os:</div>
+            <div class="fastfetch-value">archlinux (rolling, like my mindset)</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">user:</div>
+            <div class="fastfetch-value">akileshas</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">host:</div>
+            <div class="fastfetch-value">ai</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">kernel:</div>
+            <div class="fastfetch-value">init=/bin/think</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">uptime:</div>
+            <div class="fastfetch-value">19 years</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">terminal:</div>
+            <div class="fastfetch-value">homepage v1.0 (/dev/identity)</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">shell:</div>
+            <div class="fastfetch-value">/bin/brain</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">editor:</div>
+            <div class="fastfetch-value">nvim</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">locale:</div>
+            <div class="fastfetch-value">c, cpp, rust, python, go, haskell, zig, ...</div>
+          </div>
+          <div class="fastfetch-line">
+            <div class="fastfetch-key">packages:</div>
+            <div class="fastfetch-value">pytorch, tinygrad, ...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="line prompt"><span class="cmd-find">find ~/ -type l</span></div>
+      <div class="line output"><a href="https://codeberg.org/akileshas/" class="file-link">codeberg</a></div>
+      <div class="line output"><a href="https://github.com/akileshas/" class="file-link">github</a></div>
+      <div class="line output"><a href="mailto:akileshas.dev@gmail.com" class="file-link">mail</a></div>
+      <div class="line output"><a href="tel:+919123584620" class="file-link">phone</a></div>
+      <div class="line output"><a href="https://codeberg.org/akileshas/.profile/src/branch/master/_metadata/resume/__akileshas__.pdf" class="file-link">resume</a></div>
+
+      <div class="line prompt"><span class="cmd-compgen">compgen -g</span></div>
+      <div class="line output">ai, research, nlp, system programming, open source, distributed systems, ml, dl, reinforcement learning, computer vision, quant, edge computing, optimization, mathematics, ...</div>
+
+      <div class="line prompt"><span class="cmd-cat">cat ./about.txt</span></div>
+      <div class="line output">* i build systems that learn and think.</div>
+      <div class="line output">* passionate about research, minimalism, and open systems.</div>
+      <div class="line output">* love to play with systems and data.</div>
+      <div class="line output">* driven by curiosity to understand the fundamental nature of intelligence.</div>
+      <div class="line output">* believer in the power of mathematics and elegant code.</div>
+
+      <div class="line prompt"><span class="cursor"></span></div>
+    </div>
+  </div>
+
+  <script>
+    function updateViewportSize() {
+      const viewportElement = document.getElementById("viewport-size");
+      if (viewportElement) {
+        viewportElement.textContent = `${window.innerWidth}x${window.innerHeight}`;
+      }
+    }
+
+    window.addEventListener("load", updateViewportSize);
+    window.addEventListener("resize", updateViewportSize);
+  </script>
+</body>
+</html>
