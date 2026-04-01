@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
   background: #0a0a0a;
@@ -70,9 +71,15 @@ html, body {
   cursor: pointer;
 }
 
-.close { background: #ff5f56; }
-.minimize { background: #ffbd2e; }
-.maximize { background: #27ca3f; }
+.close {
+  background: #ff5f56;
+}
+.minimize {
+  background: #ffbd2e;
+}
+.maximize {
+  background: #27ca3f;
+}
 
 .terminal-title {
   color: #0f7db1;
@@ -121,7 +128,7 @@ html, body {
 }
 
 .prompt::before {
-    content: ">>> [~] $_ ";
+  content: ">>> [~] $_ ";
   color: #0f7db1;
   font-weight: bold;
   font-size: 14px;
@@ -173,7 +180,8 @@ html, body {
   font-size: 14px;
 }
 
-.file-link, .path-link {
+.file-link,
+.path-link {
   color: #f0f0f0;
   text-decoration: none;
   cursor: pointer;
@@ -181,7 +189,8 @@ html, body {
   font-size: 14px;
 }
 
-.file-link:hover, .path-link:hover {
+.file-link:hover,
+.path-link:hover {
   text-decoration: underline;
   text-decoration-color: #50fa7b;
 }
@@ -245,8 +254,14 @@ html, body {
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 a:not(.file-link):not(.path-link) {

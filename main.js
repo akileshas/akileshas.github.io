@@ -7,9 +7,9 @@ function updateViewportSize() {
 
 function calculateAge(birthDate) {
   const now = new Date();
-  let years  = now.getFullYear() - birthDate.getFullYear();
+  let years = now.getFullYear() - birthDate.getFullYear();
   let months = now.getMonth() - birthDate.getMonth();
-  let days   = now.getDate() - birthDate.getDate();
+  let days = now.getDate() - birthDate.getDate();
   if (days < 0) {
     months--;
     const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
@@ -32,7 +32,7 @@ function updateUptime() {
 
 function fixPathWrapping() {
   const paths = document.querySelectorAll(".line.output.path a");
-  paths.forEach(el => {
+  paths.forEach((el) => {
     el.innerHTML = el.textContent.replace(/\//g, "/\u200B");
   });
 }
